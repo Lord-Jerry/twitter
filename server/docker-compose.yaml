@@ -1,0 +1,6 @@
+version: '3'
+services:
+  cisco:
+    build: ./cisco
+    ports:
+      - "9090:8080"
