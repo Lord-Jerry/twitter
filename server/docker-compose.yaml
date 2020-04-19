@@ -1,6 +1,16 @@
-version: '3'
+version: '3.7'
 services:
   cisco:
     build: ./cisco
+    volumes: 
+      - ./cisco:/usr/src/app
     ports:
-      - "9090:8080"
+      - "8080:8080"
+    hostname: cisco
+  canary:
+    build: ./canary
+    volumes: 
+      - ./canary:/usr/src/app
+    ports: 
+        - "3000:3000"
+    hostname: canary

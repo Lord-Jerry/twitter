@@ -2,6 +2,7 @@ const app = require('express')();
 const dotenv = require('dotenv');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 // const errorHandler = require('./middleware/errorhandler');
 // const routes = require('./routes/index');
 
@@ -18,8 +19,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // use cross origin module
 app.use(cors('*'));
 
+app.use(createProxyMiddleware('/test', { target: 'http://canary:3000', changeOrigin: true}));
 // set api routes
 // app.use(routes);
+ 
 
 // set error handler
 // app.use(errorHandler);
