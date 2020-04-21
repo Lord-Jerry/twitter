@@ -1,1 +1,1 @@
-cisco = authentication service
+cisco = authentication service and gateway

@@ -2,7 +2,7 @@ const app = require('express')();
 const dotenv = require('dotenv');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-// const errorHandler = require('./middleware/errorhandler');
+const errorHandler = require('./middlewares/errorhandler');
 // const routes = require('./routes/index');
 
 // set web server port according to environment
@@ -24,11 +24,11 @@ app.use(cors('*'));
 
 // set error handler
 
-// app.use(errorHandler);
+app.use(errorHandler);
 
 // 404 error
 
-app.get('/test', (_req, res) => {
+app.get('/api/v1/tweet/test', (_req, res) => {
   res.send('this is a test!!!!!!');
 });
 
