@@ -1,5 +1,12 @@
 version: '3.7'
 services:
+  client: 
+    build: ./client
+    volumes: 
+      - ./client:usr/src/app
+    ports: 
+      "3000:3000"
+    hostname: client
   cisco:
     build: ./server/cisco
     volumes: 
