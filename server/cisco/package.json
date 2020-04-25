@@ -4,11 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "npm run drop:test:db && npm run create:test:db && npm run migrate:test:db && cross-env PORT=8000 NODE_ENV=test jest --forceExit",
     "start": "nodemon index.js",
+
     "create:db": "npx sequelize-cli db:create cisco",
+    "create:test:db": "cross-env NODE_ENV=test npx sequelize-cli db:create cisco",
+
     "drop:db": "npx sequelize-cli db:drop cisco",
-    "migrate:db": "npx sequelize-cli db:migrate"
+    "drop:test:db": "cross-env NODE_ENV=test npx sequelize-cli db:drop cisco",
+
+    "migrate:db": "npx sequelize-cli db:migrate",
+    "migrate:test:db": "cross-env NODE_ENV=test npx sequelize-cli db:migrate"
+    
   },
   "keywords": [],
   "author": "",
@@ -17,6 +24,7 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "http-proxy-middleware": "^1.0.3",
@@ -31,6 +39,14 @@
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.20.2",
-    "nodemon": "^1.19.4"
+    "jest": "^25.4.0",
+    "nodemon": "^1.19.4",
+    "supertest": "^4.0.2"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
   }
 }
