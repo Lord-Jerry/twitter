@@ -1,18 +1,18 @@
 const router = require("express").Router();
 const { create, login } = require('../controllers/users');
-const { register } = require('../middlewares/validations/users');
+const { ValidateRegistration, validateLogin  } = require('../middlewares/validations/users');
 
 router
   .route('/register')
   .post(
-    register,
+    ValidateRegistration,
     create
   );
 
 router
   .route('/login')
   .post(
-    register,
+    validateLogin,
     login
   );
 

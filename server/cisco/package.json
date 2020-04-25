@@ -4,18 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npm run drop:test:db && npm run create:test:db && npm run migrate:test:db && cross-env PORT=8000 NODE_ENV=test jest --forceExit",
+    "test": "npm run drop:test:db && npm run create:test:db && npm run migrate:test:db && npm run seed:test:db && cross-env PORT=8000 NODE_ENV=test jest --forceExit",
     "start": "nodemon index.js",
-
     "create:db": "npx sequelize-cli db:create cisco",
     "create:test:db": "cross-env NODE_ENV=test npx sequelize-cli db:create cisco",
-
     "drop:db": "npx sequelize-cli db:drop cisco",
     "drop:test:db": "cross-env NODE_ENV=test npx sequelize-cli db:drop cisco",
-
     "migrate:db": "npx sequelize-cli db:migrate",
-    "migrate:test:db": "cross-env NODE_ENV=test npx sequelize-cli db:migrate"
-    
+    "migrate:test:db": "cross-env NODE_ENV=test npx sequelize-cli db:migrate",
+    "seed:db": "npx sequelize-cli db:seed",
+    "seed:test:db": "cross-env NODE_ENV=test npx sequelize-cli db:seed"
   },
   "keywords": [],
   "author": "",
@@ -29,9 +27,9 @@
     "express": "^4.17.1",
     "http-proxy-middleware": "^1.0.3",
     "jsonwebtoken": "^8.5.1",
-    "pg": "^7.12.1",
+    "pg": "^8.0.3",
     "pg-hstore": "^2.3.3",
-    "sequelize": "^5.21.2",
+    "sequelize": "^5.21.7",
     "sequelize-cli": "^5.5.1",
     "validatorjs": "^3.17.1"
   },
