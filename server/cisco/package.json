@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.js",
     "create:db": "npx sequelize-cli db:create cisco",
-    "drop:db": "npx sequelize-cli db:drop cisco"
+    "drop:db": "npx sequelize-cli db:drop cisco",
+    "migrate:db": "npx sequelize-cli db:migrate"
   },
   "keywords": [],
   "author": "",
