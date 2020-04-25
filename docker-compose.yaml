@@ -7,6 +7,8 @@ services:
     ports:
       - "8080:8080"
     hostname: cisco
+    depends_on: 
+      - db
   canary:
     build: ./server/canary
     volumes: 
@@ -14,9 +16,11 @@ services:
     ports: 
         - "3000:3000"
     hostname: canary
-  postgres: 
+    depends_on: 
+      - db
+  db: 
     image: postgres:10
-    hostname: postgres
+    hostname: db
     ports: 
       - "5432:5432"
     environment:

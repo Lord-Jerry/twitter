@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "create:db": "npx sequelize-cli db:create cisco",
+    "drop:db": "npx sequelize-cli db:drop cisco"
   },
   "keywords": [],
   "author": "",
