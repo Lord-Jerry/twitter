@@ -10,6 +10,8 @@ module.exports = {
           username: "test",
           name: "test",
           password: "test",
+          createdAt: new Date(), 
+          updatedAt: new Date()
         },
       ],
       {}

@@ -79,6 +79,7 @@ class User {
           email,
         }
       });
+      console.log(checkEmail);
 
       if (!checkEmail) {
         const err = new Error(); 

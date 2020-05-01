@@ -2,7 +2,7 @@ const request = require('supertest');
 const server = require('../index');
 
 describe('Create user endpoint', () => {
-  it('should return an error', async (done) => {
+  it('should return an error, if body is empty', async (done) => {
     const res = await request(server)
       .post('/api/v1/auth/register')
       .send({})
@@ -10,7 +10,7 @@ describe('Create user endpoint', () => {
     done();
   });
 
-  it('should return an error', async (done) => {
+  it('should return an error, if user with email already exists', async (done) => {
     const res = await request(server)
       .post('/api/v1/auth/register')
       .send({
@@ -23,7 +23,7 @@ describe('Create user endpoint', () => {
     done();
   });
 
-  it('should return an error', async (done) => {
+  it('should return an error,  if user with username already exists', async (done) => {
     const res = await request(server)
       .post('/api/v1/auth/register')
       .send({
@@ -36,7 +36,7 @@ describe('Create user endpoint', () => {
     done();
   });
 
-  it('should be successful', async (done) => {
+  it('should be successful, if correct details are incorrect', async (done) => {
     const res = await request(server)
       .post('/api/v1/auth/register')
       .send({
@@ -51,7 +51,7 @@ describe('Create user endpoint', () => {
 });
 
 describe('Log in endpoint', () => {
-  it('should return an error', async (done) => {
+  it('should return an error, if body is empty', async (done) => {
     const res = await request(server)
       .post('/api/v1/auth/login')
       .send({})
@@ -59,12 +59,12 @@ describe('Log in endpoint', () => {
     done();
   });
 
-  it('should be successful', async (done) => {
+  it('should be successful, if correct details are given', async (done) => {
     const res = await request(server)
       .post('/api/v1/auth/login')
       .send({
-        email: 'test@gmail.com', 
-        password: 'test',
+        email: 'test1@gmail.com', 
+        password: 'test1',
       });
     expect(res.statusCode).toEqual(200);
     done();
