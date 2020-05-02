@@ -16,7 +16,7 @@ module.exports = {
     tweet: {
       allowNull: false,
       type: Sequelize.STRING,
-      unique: true,
+      unique: false,
     },
     createdAt: {
       allowNull: false,
