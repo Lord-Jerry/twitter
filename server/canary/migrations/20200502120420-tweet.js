@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  up: (queryInterface, Sequelize) => queryInterface.createTable('tweet', {
+  up: (queryInterface, Sequelize) => queryInterface.createTable('tweets', {
     id: {
       allowNull: false,
       primaryKey: true,
@@ -30,5 +30,5 @@ module.exports = {
     },
   }),
   
-  down: (queryInterface, _Sequelize) => queryInterface.dropTable('tweet'),
+  down: (queryInterface, _Sequelize) => queryInterface.dropTable('tweets'),
 };

@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  up: (queryInterface, Sequelize) => queryInterface.createTable('retweet', {
+  up: (queryInterface, Sequelize) => queryInterface.createTable('retweets', {
     id: {
       allowNull: false,
       primaryKey: true,
@@ -18,7 +18,7 @@ module.exports = {
       type: Sequelize.INTEGER,
       unique: false,
       references: {
-        model: 'tweet',
+        model: 'tweets',
         key: 'id',
       },
     },
@@ -39,5 +39,5 @@ module.exports = {
     },
   }),
   
-  down: (queryInterface, _Sequelize) => queryInterface.dropTable('retweet'),
+  down: (queryInterface, _Sequelize) => queryInterface.dropTable('retweets'),
 };

@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const like = sequelize.define('like', {
+  const likes = sequelize.define('like', {
     id: {
       allowNull: false,
       primaryKey: true,
@@ -42,9 +42,9 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   // eslint-disable-next-line no-unused-vars
-  like.associate = function models(model) {
-    like.belongsTo(model.tweet, { foreignKey: 'tweetId', targetKey: 'id' });
-    like.belongsTo(model.retweet, { foreignKey: 'retweetId', targetKey: 'id' });
+  likes.associate = function models(model) {
+    likes.belongsTo(model.tweet, { foreignKey: 'tweetId', targetKey: 'id' });
+    likes.belongsTo(model.retweet, { foreignKey: 'retweetId', targetKey: 'id' });
   };
-  return like;
+  return likes;
 };

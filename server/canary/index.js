@@ -1,26 +1,21 @@
 const app = require('express')();
 const dotenv = require('dotenv');
 const cors = require('cors');
-const bodyParser = require('body-parser');
 const errorHandler = require('./middlewares/errorhandler');
-// const routes = require('./routes/index');
+const routes = require('./route/index');
 
 // set web server port according to environment
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3030;
 
 // load configuration file
 
 dotenv.config();
 
-// parse incoming request
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
 // use cross origin module
 app.use(cors('*'));
 
 // set api routes
-// app.use(routes);
+app.use('/api/v1/tweet',routes);
 
 // set error handler
 
@@ -28,9 +23,6 @@ app.use(errorHandler);
 
 // 404 error
 
-app.get('/api/v1/tweet/test', (_req, res) => {
-  res.send('this is a test!!!!!!');
-});
 
 app.use((_req, res) => {
   res.status(404).json({

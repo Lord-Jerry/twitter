@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const retweet = sequelize.define('retweet', {
+  const tweets = sequelize.define('tweet', {
     id: {
       allowNull: false,
       primaryKey: true,
@@ -11,17 +11,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       unique: false,
     },
-    parentId: {
+    tweet: {
       allowNull: false,
-      type: Sequelize.INTEGER,
-      unique: false,
-      references: {
-        model: 'tweet',
-        key: 'id',
-      },
-    },
-    comment: {
-      allowNull: true,
       type: DataTypes.STRING,
       unique: false,
     },
@@ -38,9 +29,9 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   // eslint-disable-next-line no-unused-vars
-  retweet.associate = function model(models) {
-    retweet.hasMany(model.like);
-    retweet.belongsTo(model.tweet, { foreignKey: 'parentId', targetKey: 'id' });
+  tweets.associate = function models(model) {
+    tweets.hasMany(model.like);
+    tweets.hasMany(model.retweet);
   };
-  return retweet;
+  return tweets;
 };
