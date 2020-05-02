@@ -1,7 +1,6 @@
 const app = require('express')();
 const dotenv = require('dotenv');
 const cors = require('cors');
-const bodyParser = require('body-parser');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const errorHandler = require('./middlewares/errorhandler');
 const routes = require('./routes/index');
@@ -13,16 +12,16 @@ const port = process.env.PORT || 8080;
 // load configuration file
 dotenv.config();
 
-// parse incoming request
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
 // use cross origin module
 app.use(cors('*'));
 
-app.use(checkLoggedIn, createProxyMiddleware('/api/v1/tweet', { target: 'http://canary:3000', changeOrigin: true }));
 // set api routes
 app.use('/api/v1/auth', routes);
+
+app.use(checkLoggedIn, createProxyMiddleware('/api/v1/tweet', { 
+  target: 'http://canary:3030',
+  changeOrigin: false 
+}));
 
 // set error handler
 app.use(errorHandler);

@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { decode } = require('../helpers/token')
 
 class Auth {
 
@@ -13,8 +14,7 @@ class Auth {
         return next(err);
       }
 
-      const decoded = jwt.verify(token, process.env.SECRET_KEY);
-
+      const decoded = decode(req);
       if (!decoded) {
         const err = new Error();
         err.message = 'invalid token';
@@ -22,7 +22,7 @@ class Auth {
         return next(err);
       }
 
-      req.headers.decoded_token = decoded;
+      req.headers.decoded_token = JSON.stringify(decoded[0]);
       return next();
     } catch (e) {
       const err = new Error();
