@@ -1,0 +1,29 @@
+{
+  "development": {
+    "username": "user",
+    "password": "pass",
+    "database": "canary",
+    "host": "db",
+    "port": "5432",
+    "dialect": "postgres",
+    "operatorsAliases": false
+  },
+  "test": {
+    "username": "user",
+    "password": "pass",
+    "database": "canary_test",
+    "host": "db",
+    "port": "5432",
+    "dialect": "postgres",
+    "operatorsAliases": false
+  },
+  "production": {
+    "username": "user",
+    "password": "pass",
+    "database": "canary",
+    "host": "db",
+    "port": "5432",
+    "dialect": "postgres",
+    "operatorsAliases": false
+  }
+}
