@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const errorHandler = require('./middlewares/errorhandler');
 const routes = require('./routes/index');
+const { checkLoggedIn } = require('./middlewares/Auth');
 
 // set web server port according to environment
 const port = process.env.PORT || 8080;
@@ -19,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // use cross origin module
 app.use(cors('*'));
 
-app.use(createProxyMiddleware('/api/v1/tweet', { target: 'http://canary:3000', changeOrigin: true }));
+app.use(checkLoggedIn, createProxyMiddleware('/api/v1/tweet', { target: 'http://canary:3000', changeOrigin: true }));
 // set api routes
 app.use('/api/v1/auth', routes);
 
