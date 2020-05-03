@@ -16,6 +16,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       unique: false,
     },
+    parentId: {
+      allowNull: true,
+      type: DataTypes.INTEGER,
+      unique: false,
+    },
     createdAt: {
       allowNull: false,
       type: DataTypes.DATE,

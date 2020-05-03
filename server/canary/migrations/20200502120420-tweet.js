@@ -18,6 +18,11 @@ module.exports = {
       type: Sequelize.STRING,
       unique: false,
     },
+    parentId: {
+      allowNull: true,
+      type: Sequelize.INTEGER,
+      unique: false,
+    },
     createdAt: {
       allowNull: false,
       type: Sequelize.DATE,

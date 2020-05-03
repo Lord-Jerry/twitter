@@ -4,9 +4,23 @@ class Tweet {
     try {
       const decoded_token = JSON.parse(req.headers.decoded_token);
       const tweetBody = req.body.tweet;
+      const { tweetId } = req.params;
+
+      if (tweetId) {
+        const findTweet = await tweet.findByPk(tweetId);
+
+        if (!findTweet) {
+          const err = new Error();
+          err.message = `Tweet with ID ${tweetId} not found`;
+          err.statusCode = 404;
+          return next(err);
+        }
+      }
+
       const createdTweet = await tweet.create({
         userId: decoded_token.id,
         tweet: tweetBody,
+        parentId: tweetId || null,
       });
 
       return res.status(201).json({

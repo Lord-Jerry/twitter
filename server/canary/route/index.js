@@ -15,6 +15,14 @@ router
   );
 
 router
+  .route('/create/:tweetId')
+  .post(
+    validateParams,
+    ValidateCreate,
+    create
+  );
+
+router
   .route('/delete/:tweetId')
   .delete(
     validateParams,
