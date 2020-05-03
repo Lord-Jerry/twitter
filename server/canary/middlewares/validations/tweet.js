@@ -15,7 +15,7 @@ const ValidateCreate = async (req, _res, next) => {
 
   return next();
 };
-const validateDelete = async (req, _res, next) => {
+const validateParams = async (req, _res, next) => {
   const rules = {
     tweetId: 'required|numeric',
   };
@@ -32,4 +32,4 @@ const validateDelete = async (req, _res, next) => {
 };
 
 
-module.exports = { ValidateCreate, validateDelete }; 
+module.exports = { ValidateCreate, validateParams }; 

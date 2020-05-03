@@ -1,4 +1,4 @@
-const { tweet } = require('../models/index');
+const { tweet, retweet } = require("../models/index");
 class Tweet {
   static async create(req, res, next) {
     try {
@@ -10,15 +10,14 @@ class Tweet {
       });
 
       return res.status(201).json({
-        message: 'Tweet created',
-        statusCode: 201, 
+        message: "Tweet created",
+        statusCode: 201,
         data: {
           createdTweet,
         },
       });
-      
-    } catch(err) {
-      return next(err)
+    } catch (err) {
+      return next(err);
     }
   }
 
@@ -44,11 +43,47 @@ class Tweet {
       await findTweet.destroy();
 
       return res.status(204).json({
-        message: 'tweet deleted succesfully',
+        message: "tweet deleted succesfully",
         statusCode: 204,
       });
     } catch (err) {
       next(err);
+    }
+  }
+
+  static async retweet(req, res, next) {
+    try {
+      const decoded_token = JSON.parse(req.headers.decoded_token);
+      const { tweetId } = req.params;
+      let { comment } = req.body;
+      comment = comment ? comment.trim() : null;
+
+      const findTweet = await tweet.findByPk(tweetId);
+
+      if (!findTweet) {
+        const err = new Error();
+        err.message = `tweet with ID ${tweetId} not found`;
+        err.statusCode = 404;
+        return next(err);
+      }
+
+      await retweet.create({
+        userId: decoded_token.id,
+        parentId: findTweet.id,
+        comment: comment || null,
+      });
+
+      // TODO: get likes and retweet count for retweet
+      // TODO: get data for retweet with comment
+      return res.status(201).json({
+        message: "retweeted successfully",
+        statusCode: 201,
+        data: {
+          todo: true,
+        },
+      });
+    } catch (err) {
+      return next(err);
     }
   }
 }

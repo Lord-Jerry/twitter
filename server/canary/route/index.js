@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const bodyParser = require('body-parser');
-const { create, deleteTweet } = require('../controllers/tweet');
-const { ValidateCreate, validateDelete  } = require('../middlewares/validations/tweet');
+const { create, deleteTweet, retweet } = require('../controllers/tweet');
+const { ValidateCreate, validateParams } = require('../middlewares/validations/tweet');
 
 // parse incoming request
 router.use(bodyParser.json());
@@ -17,8 +17,15 @@ router
 router
   .route('/delete/:tweetId')
   .delete(
-    validateDelete,
+    validateParams,
     deleteTweet
+  );
+
+router
+  .route('/retweet/:tweetId')
+  .post(
+    validateParams,
+    retweet
   );
 
 module.exports = router;
