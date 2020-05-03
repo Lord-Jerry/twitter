@@ -1,5 +1,13 @@
 const { tweet, retweet } = require("../models/index");
 class Tweet {
+
+  /**
+   * this method, handles creating tweet, an replying to a tweeet. 
+   * 
+   * @param {object } req - request object 
+   * @param { obbjet } res - response object
+   * @param { function } next - next middleware function 
+   */
   static async create(req, res, next) {
     try {
       const decoded_token = JSON.parse(req.headers.decoded_token);
@@ -35,6 +43,13 @@ class Tweet {
     }
   }
 
+  /**
+   * this method, handles deleting tweets 
+   * 
+   * @param {object } req - request object 
+   * @param { obbjet } res - response object
+   * @param { function } next - next middleware function 
+   */
   static async deleteTweet(req, res, next) {
     try {
       const decoded_token = JSON.parse(req.headers.decoded_token);
@@ -65,6 +80,13 @@ class Tweet {
     }
   }
 
+  /**
+   * this method, handles retweets and retweets with comment. 
+   * 
+   * @param {object } req - request object 
+   * @param { obbjet } res - response object
+   * @param { function } next - next middleware function 
+   */
   static async retweet(req, res, next) {
     try {
       const decoded_token = JSON.parse(req.headers.decoded_token);
