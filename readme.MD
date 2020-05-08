@@ -20,10 +20,11 @@ A replica of twitter
  - Server
    - Cisco [Nodejs]: 
       - Handles authentication
+      - user profile
       - serves as proxy to the other services.
-      - Handles user following. 
    - Canary [Nodejs]:
       - Handles anything related to tweets (tweets, retweets, likes, e.t.c)
+      - Handles user following. 
       - Handles bookmarking 
    - Slade [Golang]: 
       - Handles notifications, messages, lists
