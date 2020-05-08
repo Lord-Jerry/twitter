@@ -1,36 +1,43 @@
-version: '3.7'
+version: "3.7"
 services:
-  client: 
+  client:
     build: ./client
-    volumes: 
+    volumes:
       - ./client:/usr/src/app
-    ports: 
+    ports:
       - "3000:3000"
     hostname: client
   cisco:
     build: ./server/cisco
-    volumes: 
+    volumes:
       - ./server/cisco:/usr/src/app
     ports:
       - "8080:8080"
     hostname: cisco
-    depends_on: 
+    depends_on:
       - db
   canary:
     build: ./server/canary
-    volumes: 
+    volumes:
       - ./server/canary:/usr/src/app
-    ports: 
-        - "3030:3030"
+    ports:
+      - "3030:3030"
     hostname: canary
-    depends_on: 
+    depends_on:
       - db
-  db: 
+  slade:
+    build: ./server/slade
+    volumes:
+      - ./server/slade:/usr/src/app
+    ports:
+      - "7000:7000"
+    hostname: slade
+  db:
     image: postgres:10
     hostname: db
-    ports: 
+    ports:
       - "5432:5432"
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: pass
-      POSTGRES_DB: db 
+      POSTGRES_DB: db
