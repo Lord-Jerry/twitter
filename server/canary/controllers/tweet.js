@@ -1,12 +1,13 @@
-const { tweet, retweet } = require("../models/index");
+const { Op } = require("sequelize");
+const sequelize = require("sequelize");
+const { tweet, retweet, like } = require("../models/index");
 class Tweet {
-
   /**
-   * this method, handles creating tweet, an replying to a tweeet. 
-   * 
-   * @param {object } req - request object 
+   * this method, handles creating tweet, an replying to a tweeet.
+   *
+   * @param {object } req - request object
    * @param { obbjet } res - response object
-   * @param { function } next - next middleware function 
+   * @param { function } next - next middleware function
    */
   static async create(req, res, next) {
     try {
@@ -44,11 +45,11 @@ class Tweet {
   }
 
   /**
-   * this method, handles deleting tweets 
-   * 
-   * @param {object } req - request object 
+   * this method, handles deleting tweets
+   *
+   * @param {object } req - request object
    * @param { obbjet } res - response object
-   * @param { function } next - next middleware function 
+   * @param { function } next - next middleware function
    */
   static async deleteTweet(req, res, next) {
     try {
@@ -81,17 +82,18 @@ class Tweet {
   }
 
   /**
-   * this method, handles retweets and retweets with comment. 
-   * 
-   * @param {object } req - request object 
+   * this method, handles retweets and retweets with comment.
+   *
+   * @param {object } req - request object
    * @param { obbjet } res - response object
-   * @param { function } next - next middleware function 
+   * @param { function } next - next middleware function
    */
   static async retweet(req, res, next) {
     try {
       const decoded_token = JSON.parse(req.headers.decoded_token);
       const { tweetId } = req.params;
       let { comment } = req.body;
+      // trim out whitespace, so whe can confirm if comment body is empty. 
       comment = comment ? comment.trim() : null;
 
       const findTweet = await tweet.findByPk(tweetId);
@@ -109,13 +111,14 @@ class Tweet {
         comment: comment || null,
       });
 
-      // TODO: get likes and retweet count for retweet
-      // TODO: get data for retweet with comment
+      const [ likeCount, retweetCount ] = await tweet.countAction(tweetId);
+
       return res.status(201).json({
         message: "retweeted successfully",
         statusCode: 201,
         data: {
-          todo: true,
+         likeCount,
+         retweetCount,
         },
       });
     } catch (err) {

@@ -1,5 +1,6 @@
+const { Op } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  const tweets = sequelize.define('tweet', {
+  const tweets = sequelize.define("tweet", {
     id: {
       allowNull: false,
       primaryKey: true,
@@ -35,8 +36,56 @@ module.exports = (sequelize, DataTypes) => {
 
   // eslint-disable-next-line no-unused-vars
   tweets.associate = function models(model) {
-    tweets.hasMany(model.like);
-    tweets.hasMany(model.retweet);
+    tweets.hasMany(model.like, { as: "Likes", foreignKey: "tweetId" });
+    tweets.hasMany(model.retweet, { as: "Retweets", foreignKey: "parentId" });
+
+    // TODO: figure out a way to make this work.
+    // tweets.countAction =  function count(tweetId) {
+    //   return tweets.findOne({
+    //     where: {
+    //       id: tweetId,
+    //     },
+    //     group: ["tweet.id"],
+    //     attributes: [
+    //       [sequelize.fn("COUNT", "Likes"), "likeCount"],
+    //       [sequelize.fn("COUNT", "Retweets"), "retweetCount"],
+    //     ],
+    //     include: [
+    //       {
+    //         model: model.like,
+    //         as: "Likes",
+    //         required: true,
+    //         where: {
+    //           "$Likes.tweetId$": { [Op.eq]: tweetId },
+    //         },
+    //         attributes: [],
+    //       },
+    //       {
+    //         model: model.retweet,
+    //         as: "Retweets",
+    //         where: {
+    //           "$Retweets.comment$": { [Op.is]: null },
+    //         },
+    //         attributes: [],
+    //       },
+    //     ],
+    //   });
+    // TODO: make use of the above
+    tweets.countAction = function count(tweetId) {
+      const getLikeCount = model.like.count({
+        where: {
+          tweetId,
+        },
+      });
+
+      const getRetweetCount = model.retweet.count({
+        where: {
+          comment: null,
+        },
+      });
+
+      return Promise.all([getLikeCount, getRetweetCount]);
+    };
   };
   return tweets;
 };
