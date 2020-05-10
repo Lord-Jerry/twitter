@@ -35,7 +35,7 @@ describe('Create tweet endpoint', () => {
 
 
 describe('Delete tweet endpoint', () => {
-  it('should return an error, if param a numeric value', async (done) => {
+  it('should return an error, if param is not a numeric value', async (done) => {
     const res = await request(server)
       .delete('/api/v1/tweet/delete/NaN')
       .send({})
@@ -66,6 +66,44 @@ describe('Delete tweet endpoint', () => {
       .set('decoded_token', JSON.stringify({id: 1}))
       .send();
     expect(res.statusCode).toEqual(204);
+    done();
+  });
+
+});
+
+
+describe('Retweet endpoint', () => {
+  it('should return an error, if param is not a numeric value', async (done) => {
+    const res = await request(server)
+      .post('/api/v1/tweet/retweet/NaN')
+      .send({})
+    expect(res.statusCode).toEqual(400);
+    done();
+  });
+
+  it('should return an error, if decode_token header is empty', async (done) => {
+    const res = await request(server)
+      .post('/api/v1/tweet/retweet/1')
+      .send({});
+    expect(res.statusCode).toEqual(500);
+    done();
+  });
+
+  it('should return an error, if tweet does not exist', async (done) => {
+    const res = await request(server)
+      .post('/api/v1/tweet/retweet/1000')
+      .set('decoded_token', JSON.stringify({id: 10}))
+      .send({});
+    expect(res.statusCode).toEqual(404);
+    done();
+  });
+
+  it('should create tweet successfully', async (done) => {
+    const res = await request(server)
+      .post('/api/v1/tweet/retweet/2')
+      .set('decoded_token', JSON.stringify({id: 1}))
+      .send();
+    expect(res.statusCode).toEqual(201);
     done();
   });
 
