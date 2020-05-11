@@ -108,3 +108,18 @@ describe('Retweet endpoint', () => {
   });
 
 });
+
+
+describe('single tweet endpoint', () => {
+  
+  it('should retrieve tweeet successfully', async (done) => {
+    const res = await request(server)
+      .get('/api/v1/tweet/2')
+      .set('decoded_token', JSON.stringify({id: 1}))
+      .send();
+      console.log(res);
+    expect(res.statusCode).toEqual(200);
+    done();
+  });
+
+});

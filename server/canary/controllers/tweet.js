@@ -140,9 +140,7 @@ class Tweet {
       }
       const endpoint = process.env.NODE_ENV !== 'test'
        ? `${CiscoBaseUrl}/user/${findTweet.userId}`
-       : `${CiscoBaseUrl}.singleUser.json`;
-
-       console.log(endpoint);
+       : `../${CiscoBaseUrl}singleUser.json`;
 
       const userDetails = await get(endpoint);
 

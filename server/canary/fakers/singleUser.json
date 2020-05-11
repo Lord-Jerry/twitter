@@ -1,0 +1,15 @@
+{
+    "data": {
+        "data": {
+            "id": 1,
+            "name": "test",
+            "email": "test@gmail.com",
+            "mobile": null,
+            "username": "test",
+            "displayName": null,
+            "countryId": null,
+            "createdAt": "2020-04-25T15:35:00.667Z",
+            "updatedAt": "2020-04-25T15:35:00.668Z"
+        }
+    }
+}
