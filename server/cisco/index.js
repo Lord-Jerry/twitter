@@ -37,8 +37,10 @@ app.use((_req, res) => {
 });
 
 // set web server port
-app.listen(port, () => {
-  /* eslint-disable no-console */
-  console.log(`server started at port ${port}`);
-});
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(port, () => {
+    /* eslint-disable no-console */
+    console.log(`server started at port ${port}`);
+  });
+}
 module.exports = app;
