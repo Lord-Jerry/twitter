@@ -1,7 +1,7 @@
 const { get } = require('../utils/axios');
 const { tweet, retweet, like } = require("../models/index");
 // TODO: move url to env file
-const CiscoBaseUrl = 'http://cisco:8080/api/v1';
+const CiscoBaseUrl = process.env.CISCO;
 class Tweet {
   /**
    * this method, handles creating tweet, an replying to a tweeet.
@@ -138,8 +138,13 @@ class Tweet {
         err.statusCode = 404;
         return next(err);
       }
+      const endpoint = process.env.NODE_ENV !== 'test'
+       ? `${CiscoBaseUrl}/user/${findTweet.userId}`
+       : `${CiscoBaseUrl}.singleUser.json`;
 
-      const userDetails = await get(`${CiscoBaseUrl}/user/${findTweet.userId}`);
+       console.log(endpoint);
+
+      const userDetails = await get(endpoint);
 
       return res.status(200).json({
         message: "tweet",

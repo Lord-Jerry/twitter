@@ -1,15 +1,19 @@
 const app = require('express')();
-const dotenv = require('dotenv');
 const cors = require('cors');
 const errorHandler = require('./middlewares/errorhandler');
+const dotenv = require('dotenv');
+
+if (process.env.NODE_ENV !== 'production') {
+  const env = process.env.NODE_ENV || 'development';
+  dotenv.config({ path: `./.env.${env}`});
+} else {
+  dotenv.config();
+}
+
 const routes = require('./route/index');
 
 // set web server port according to environment
 const port = process.env.PORT || 3030;
-
-// load configuration file
-
-dotenv.config();
 
 // use cross origin module
 app.use(cors('*'));
