@@ -3,7 +3,8 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const errorHandler = require('./middlewares/errorhandler');
-const routes = require('./routes/index');
+const authRoutes = require('./routes/auth');
+const userRoutes = require('./routes/user');
 const { checkLoggedIn } = require('./middlewares/Auth');
 
 // set web server port according to environment
@@ -16,7 +17,8 @@ dotenv.config();
 app.use(cors('*'));
 
 // set api routes
-app.use('/api/v1/auth', routes);
+app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1', userRoutes);
 
 app.use(checkLoggedIn, createProxyMiddleware('/api/v1/tweet', { 
   target: 'http://canary:3030',

@@ -112,6 +112,30 @@ class User {
       return next(err);
     }
   }
+
+  static async getSingleUser(req, res, next) {
+    try {
+      const { userId } = req.params;
+      const userDetails = await users.findByPk(userId);
+
+      if (!userDetails) {
+        const err = new Error();
+        err.message = `user with ID ${userId} not found`;
+        err.statusCode = 404;
+        return next(err);
+      }
+
+      userDetails.password = undefined;
+
+      return res.status(200).json({
+        statusCode: 200,
+        message: 'user details',
+        data: userDetails,
+      });
+    } catch (err) {
+      return next(err);
+    } 
+  }
 }
 
 module.exports = User;

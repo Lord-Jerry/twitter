@@ -35,5 +35,21 @@ const validateLogin = async (req, _res, next) => {
   return next();
 };
 
+const validateParams = async (req, _res, next) => {
+  const rules = {
+    userId: 'required|numeric',
+  };
+  const validate = new Validator(req.params, rules);
 
-module.exports = { ValidateRegistration, validateLogin }; 
+  if (!validate.passes()) {
+    const err = new Error();
+    err.message = validate.errors;
+    err.statusCode = 400;
+    return next(err);
+  }
+
+  return next();
+};
+
+
+module.exports = { ValidateRegistration, validateLogin, validateParams }; 
