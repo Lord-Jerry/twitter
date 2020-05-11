@@ -1,6 +1,7 @@
-const { Op } = require("sequelize");
-const sequelize = require("sequelize");
+const { get } = require('../utils/axios');
 const { tweet, retweet, like } = require("../models/index");
+// TODO: move url to env file
+const CiscoBaseUrl = 'http://cisco:8080/api/v1';
 class Tweet {
   /**
    * this method, handles creating tweet, an replying to a tweeet.
@@ -122,6 +123,39 @@ class Tweet {
         },
       });
     } catch (err) {
+      return next(err);
+    }
+  }
+
+  static async getSingleTweet(req, res, next) {
+    try {
+      const { tweetId } = req.params;
+      const findTweet = await tweet.findByPk(tweetId);
+
+      if (!findTweet) {
+        const err = new Error();
+        err.message = `tweet with ID ${tweetId} not found`;
+        err.statusCode = 404;
+        return next(err);
+      }
+
+      const userDetails = await get(`${CiscoBaseUrl}/user/${findTweet.userId}`);
+
+      return res.status(200).json({
+        message: "tweet",
+        statusCode: 200,
+        data: {
+         tweeet: findTweet,
+         user: userDetails?.data?.data,
+        },
+      });
+    } catch (err) {
+      if (err?.response?.status === 404) {
+        const e = new Error();
+        e.message = 'tweet not found';
+        e.statusCode = 404;
+        return next(e);
+      }
       return next(err);
     }
   }

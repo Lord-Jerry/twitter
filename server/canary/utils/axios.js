@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 class Axios {
-  static send(endpoint, headers = {}, data= {}) {
+  static get(endpoint, headers = {}, data= {}) {
     return axios({
       method: 'get',
       url: endpoint,
