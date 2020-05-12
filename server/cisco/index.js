@@ -3,15 +3,21 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const errorHandler = require('./middlewares/errorhandler');
+const { checkLoggedIn } = require('./middlewares/Auth');
+
+
+if (process.env.NODE_ENV !== 'production') {
+  const env = process.env.NODE_ENV || 'development';
+  dotenv.config({ path: `./.env.${env}`});
+} else {
+  dotenv.config();
+}
+
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
-const { checkLoggedIn } = require('./middlewares/Auth');
 
 // set web server port according to environment
 const port = process.env.PORT || 8080;
-
-// load configuration file
-dotenv.config();
 
 // use cross origin module
 app.use(cors('*'));
