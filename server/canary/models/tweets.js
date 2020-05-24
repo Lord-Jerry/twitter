@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       unique: false,
     },
     tweet: {
-      allowNull: false,
+      allowNull: true,
       type: DataTypes.STRING,
       unique: false,
     },
@@ -51,7 +51,6 @@ module.exports = (sequelize, DataTypes) => {
   // eslint-disable-next-line no-unused-vars
   tweets.associate = function models(model) {
     tweets.hasMany(model.like, { as: "Likes", foreignKey: "tweetId" });
-    tweets.hasMany(model.retweet, { as: "Retweets", foreignKey: "parentId" });
 
     // TODO: figure out a way to make this work.
     // tweets.countAction =  function count(tweetId) {
@@ -92,9 +91,10 @@ module.exports = (sequelize, DataTypes) => {
         },
       });
 
-      const getRetweetCount = model.retweet.count({
+      const getRetweetCount = model.tweet.count({
         where: {
-          comment: null,
+          tweet: null,
+          tweetId,
         },
       });
 

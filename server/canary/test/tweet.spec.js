@@ -98,9 +98,9 @@ describe('Retweet endpoint', () => {
     done();
   });
 
-  it('should create tweet successfully', async (done) => {
+  it('should create Retweet successfully', async (done) => {
     const res = await request(server)
-      .post('/api/v1/tweet/retweet/2')
+      .post('/api/v1/tweet/retweet/20')
       .set('decoded_token', JSON.stringify({id: 1}))
       .send();
     expect(res.statusCode).toEqual(201);

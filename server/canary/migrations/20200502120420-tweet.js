@@ -14,7 +14,7 @@ module.exports = {
       unique: false,
     },
     tweet: {
-      allowNull: false,
+      allowNull: true,
       type: Sequelize.STRING,
       unique: false,
     },

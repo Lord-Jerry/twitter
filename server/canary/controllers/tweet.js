@@ -106,10 +106,10 @@ class Tweet {
         return next(err);
       }
 
-      await retweet.create({
+      await tweet.create({
         userId: decoded_token.id,
-        parentId: findTweet.id,
-        comment: comment || null,
+        tweetId,
+        tweet: comment || null,
       });
 
       const [ likeCount, retweetCount ] = await tweet.countAction(tweetId);

@@ -20,15 +20,6 @@ module.exports = (sequelize, DataTypes) => {
         key: 'id',
       },
     },
-    retweetId: {
-      allowNull: true,
-      type: DataTypes.INTEGER,
-      unique: false,
-      references: {
-        model: 'retweet',
-        key: 'parentId',
-      },
-    },
     createdAt: {
       allowNull: false,
       type: DataTypes.DATE,
@@ -44,7 +35,6 @@ module.exports = (sequelize, DataTypes) => {
   // eslint-disable-next-line no-unused-vars
   likes.associate = function models(model) {
     likes.belongsTo(model.tweet, { foreignKey: 'tweetId', targetKey: 'id' });
-    likes.belongsTo(model.retweet, { foreignKey: 'retweetId', targetKey: 'id' });
   };
   return likes;
 };

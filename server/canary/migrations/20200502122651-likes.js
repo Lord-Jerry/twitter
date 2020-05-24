@@ -22,15 +22,6 @@ module.exports = {
         key: 'id',
       },
     },
-    retweetId: {
-      allowNull: true,
-      type: Sequelize.INTEGER,
-      unique: false,
-      references: {
-        model: 'retweets',
-        key: 'id',
-      },
-    },
     createdAt: {
       allowNull: false,
       type: Sequelize.DATE,
