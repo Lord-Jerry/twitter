@@ -17,10 +17,24 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       unique: false,
     },
+    // for retweet 
+    tweetId: {
+      allowNull: true,
+      type: DataTypes.INTEGER,
+      unique: false,
+      references: {
+        model: 'tweet',
+        key: 'id',
+      },
+    },
     parentId: {
       allowNull: true,
       type: DataTypes.INTEGER,
       unique: false,
+      references: {
+        model: 'tweet',
+        key: 'id',
+      },
     },
     createdAt: {
       allowNull: false,

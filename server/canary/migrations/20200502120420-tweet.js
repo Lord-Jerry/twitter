@@ -18,10 +18,24 @@ module.exports = {
       type: Sequelize.STRING,
       unique: false,
     },
+    // for retweet 
+    tweetId: {
+      allowNull: true,
+      type: Sequelize.INTEGER,
+      unique: false,
+      references: {
+        model: 'tweets',
+        key: 'id',
+      },
+    },
     parentId: {
       allowNull: true,
       type: Sequelize.INTEGER,
       unique: false,
+      references: {
+        model: 'tweets',
+        key: 'id',
+      },
     },
     createdAt: {
       allowNull: false,
