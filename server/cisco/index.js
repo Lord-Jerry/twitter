@@ -24,7 +24,7 @@ app.use(cors('*'));
 
 // set api routes
 app.use('/api/v1/auth', authRoutes);
-app.use('/api/v1', userRoutes);
+app.use('/api/v1/user', userRoutes);
 
 app.use(checkLoggedIn, createProxyMiddleware('/api/v1/tweet', { 
   target: 'http://canary:3030',

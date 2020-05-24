@@ -7,7 +7,7 @@ router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 
 router
-  .route('/user/:userId')
+  .route('/:userId')
   .get(
     validateParams,
     getSingleUser
